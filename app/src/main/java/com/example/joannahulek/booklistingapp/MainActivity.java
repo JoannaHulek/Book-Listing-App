@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkInternetConnection();
-                getSupportLoaderManager().restartLoader(BOOK_LOADER_ID, null, loader);
+                if (checkInternetConnection()) {
+                    getSupportLoaderManager().restartLoader(BOOK_LOADER_ID, null, loader);
+                }
             }
         });
     }
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         bookListView.setAdapter(adapter);
     }
 
-    private void checkInternetConnection() {
+    private boolean checkInternetConnection() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         TextView mEmptyStateTextView = (TextView) findViewById(empty_view);
@@ -78,10 +79,12 @@ public class MainActivity extends AppCompatActivity
             mEmptyStateTextView.setText(R.string.no_books_found);
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
+            return true;
         } else {
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
+            return false;
         }
     }
 

@@ -26,6 +26,7 @@ public class BookAdapter extends ArrayAdapter<Book> implements Serializable {
     @NonNull
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
+
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.book_list_item, parent, false);
@@ -75,6 +76,9 @@ public class BookAdapter extends ArrayAdapter<Book> implements Serializable {
             }
             textView.setText(currentText);
         }
+    }
+
+    private class ViewHolder {
     }
 }
 
