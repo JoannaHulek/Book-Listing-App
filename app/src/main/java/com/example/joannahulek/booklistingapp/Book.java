@@ -1,6 +1,5 @@
 package com.example.joannahulek.booklistingapp;
-
-        import java.io.Serializable;
+import java.io.Serializable;
 
 /**
  * Created by Joasia on 05.07.2017.

@@ -111,22 +111,25 @@ public final class QueryUtils {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
-            JSONArray bookArray = baseJsonResponse.getJSONArray("items");
 
-            for (int i = 0; i < bookArray.length(); i++) {
+            if (baseJsonResponse.has("items")) {
+                JSONArray bookArray = baseJsonResponse.getJSONArray("items");
 
-                JSONObject currentBook = bookArray.getJSONObject(i);
-                JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
+                for (int i = 0; i < bookArray.length(); i++) {
 
-                String authors = getOrNothing(volumeInfo, "authors");
-                String title = getOrNothing(volumeInfo, "title");
-                String subtitle = getOrNothing(volumeInfo, "subtitle");
-                String publisher = getOrNothing(volumeInfo, "publisher");
-                String publishedDate = getOrNothing(volumeInfo, "publishedDate");
-                String previewLink = getOrNothing(volumeInfo, "previewLink");
+                    JSONObject currentBook = bookArray.getJSONObject(i);
+                    JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
-                Book book = new Book(authors, title, subtitle, publisher, publishedDate, previewLink);
-                books.add(book);
+                    String authors = getOrNothing(volumeInfo, "authors");
+                    String title = getOrNothing(volumeInfo, "title");
+                    String subtitle = getOrNothing(volumeInfo, "subtitle");
+                    String publisher = getOrNothing(volumeInfo, "publisher");
+                    String publishedDate = getOrNothing(volumeInfo, "publishedDate");
+                    String previewLink = getOrNothing(volumeInfo, "previewLink");
+
+                    Book book = new Book(authors, title, subtitle, publisher, publishedDate, previewLink);
+                    books.add(book);
+                }
             }
 
         } catch (JSONException e) {

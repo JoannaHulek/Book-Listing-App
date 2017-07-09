@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkInternetConnection();
                 getSupportLoaderManager().restartLoader(BOOK_LOADER_ID, null, loader);
             }
         });
